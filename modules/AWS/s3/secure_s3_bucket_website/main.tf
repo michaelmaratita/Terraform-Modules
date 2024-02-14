@@ -1,5 +1,5 @@
 module "cloudfront_distribution" {
-  source = "../aws/cloudfront_distribution"
+  source = "../../cloudfront"
 
   name                        = var.name
   description                 = var.description

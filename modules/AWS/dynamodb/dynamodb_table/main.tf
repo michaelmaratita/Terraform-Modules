@@ -21,6 +21,6 @@ resource "aws_dynamodb_table" "table" {
   }
 
   lifecycle {
-    ignore_changes = [ ttl ]
+    ignore_changes = [ttl]
   }
 }

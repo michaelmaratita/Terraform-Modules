@@ -10,8 +10,8 @@ resource "aws_api_gateway_deployment" "deploy" {
     #       resources will show a difference after the initial implementation.
     #       It will stabilize to only change when resources change afterwards.
     redeployment = sha1(jsonencode(
-        var.redeployment
-        ))
+      var.redeployment
+    ))
   }
 
   lifecycle {

@@ -3,6 +3,6 @@ resource "aws_route53_record" "record" {
   name    = var.name
   type    = var.type
   ttl     = var.ttl
-  
+
   records = ["${var.records_list}"]
 }

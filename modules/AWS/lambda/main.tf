@@ -21,8 +21,8 @@ data "aws_iam_policy_document" "assume_role" {
 
 data "aws_iam_policy_document" "policy" {
   statement {
-    effect = "Allow"
-    actions = var.actions
+    effect    = "Allow"
+    actions   = var.actions
     resources = var.resource
   }
 }

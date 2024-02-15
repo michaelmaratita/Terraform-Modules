@@ -17,7 +17,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   is_ipv6_enabled     = true
   comment             = var.comment
   default_root_object = var.default_root_object
-  aliases             = ["${var.cdn_alias}"] 
+  aliases             = ["${var.cdn_alias}"]
 
   default_cache_behavior {
     allowed_methods  = var.allowed_methods

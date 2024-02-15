@@ -1,21 +1,21 @@
 variable "name" {
   description = "Name for Origin Access Control"
-  type = string
+  type        = string
 }
 
 variable "description" {
   description = "Description for Origin Access Control"
-  type = string
+  type        = string
 }
 
 variable "comment" {
   description = "Comment for CloudFront Distribution"
-  type = string
+  type        = string
 }
 
 variable "origin_id" {
   description = "ID for Origin Access Control"
-  type = string
+  type        = string
 }
 
 variable "domain_name" {
@@ -25,15 +25,15 @@ variable "domain_name" {
 
 variable "bucket_name" {
   description = "Name of S3 bucket"
-  type = string
+  type        = string
 }
 
 variable "bucket_policy_sid" {
   description = "Sid for Bucket Policy"
-  type = string
+  type        = string
 }
 
 variable "certificate" {
   description = "Certificate issued by ACM"
-  type = string
+  type        = string
 }

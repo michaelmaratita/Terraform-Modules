@@ -6,9 +6,9 @@ locals {
 module "acm" {
   source = "../AWS/acm"
 
-  domain_name         = var.my_domain
+  domain_name               = var.my_domain
   subject_alternative_names = [var.subject_alternative_names]
-  validation_record   = [ 
+  validation_record = [
     module.acm_validation.domain_name,
     module.acm_validation.subject_alternative_names
   ]
@@ -27,9 +27,9 @@ module "acm_validation" {
 module "api" {
   source = "../AWS/api_gateway"
 
-  name = var.api_name
+  name        = var.api_name
   description = var.api_description
-  types = var.api_types
+  types       = var.api_types
 }
 
 module "api_deployment" {
@@ -45,8 +45,8 @@ module "api_deployment" {
     module.api_resource_sns.method,
     module.api_resource_sns.integration,
     module.api_resource_sns.api_resource
-    ]
-  stage_name = "Production"
+  ]
+  stage_name  = "Production"
   domain_name = module.api_gateway_domain.domain_name
 }
 
@@ -60,21 +60,21 @@ module "api_gateway_domain" {
 module "api_resource_dynamodb" {
   source = "../AWS/api_gateway/api_gateway_resource_CORS_enabled"
 
-  api_id                    = module.api.id
-  parent_id                 = module.api.root_resource_id
-  path_part                 = var.dynamodb_path_part
-  http_method               = var.http_method
-  lambda_function           = module.lambda_dynamodb.invoke_arn
+  api_id          = module.api.id
+  parent_id       = module.api.root_resource_id
+  path_part       = var.dynamodb_path_part
+  http_method     = var.http_method
+  lambda_function = module.lambda_dynamodb.invoke_arn
 }
 
 module "api_resource_sns" {
   source = "../AWS/api_gateway/api_gateway_resource_CORS_enabled"
 
-  api_id                    = module.api.id
-  parent_id                 = module.api.root_resource_id
-  path_part                 = var.sns_path_part
-  http_method               = var.http_method
-  lambda_function           = module.lambda_sns.invoke_arn
+  api_id          = module.api.id
+  parent_id       = module.api.root_resource_id
+  path_part       = var.sns_path_part
+  http_method     = var.http_method
+  lambda_function = module.lambda_sns.invoke_arn
 }
 
 # CloudFront Distribution with S3 Bucket
@@ -110,13 +110,13 @@ module "dynamodb" {
 module "lambda_dynamodb" {
   source = "../AWS/lambda/lambda_iam_module"
 
-  description   = var.dynamodb_description
-  function_name = var.dynamodb_function_name
-  file_name     = var.dynamodb_function_file
-  zip_file_name = var.dynamodb_function_zip
-  policy_name   = var.dynamodb_policy_name
+  description     = var.dynamodb_description
+  function_name   = var.dynamodb_function_name
+  file_name       = var.dynamodb_function_file
+  zip_file_name   = var.dynamodb_function_zip
+  policy_name     = var.dynamodb_policy_name
   api_gateway_arn = "${module.api.execution_arn}/*/POST${module.api_resource_dynamodb.path}"
-  actions       = var.dynamodb_actions
+  actions         = var.dynamodb_actions
 
   resource = [module.dynamodb.arn]
 }
@@ -188,7 +188,7 @@ module "api_record" {
   alias_name    = module.api_gateway_domain.cloudfront_domain_name
   alias_zone_id = module.api_gateway_domain.cloudfront_zone_id
 
-  depends_on = [ module.acm.validation_certificate_arn ]
+  depends_on = [module.acm.validation_certificate_arn]
 }
 
 module "blog" {
@@ -208,7 +208,7 @@ module "cloudfront_record" {
   alias_name    = module.static_website.cloudfont_domain_name
   alias_zone_id = module.static_website.cloudfont_hosted_zone_id
 
-  depends_on = [module.acm.validation_certificate_arn ]
+  depends_on = [module.acm.validation_certificate_arn]
 }
 
 module "www_blog" {
